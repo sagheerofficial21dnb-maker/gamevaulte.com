@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --cyber-green-dark: #001a0e;
+    --cyber-green-base: #002814;
+    --cyber-green-card: #00331b;
+    --cyber-green-glow: #10b981;
+    --cyber-yellow: #ffe600;
+    --cyber-yellow-gold: #ffd700;
+  }
+
+  body {
+    background-color: #00180d;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(0, 68, 34, 0.4) 0%, transparent 60%),
+      linear-gradient(rgba(0, 40, 20, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 40, 20, 0.3) 1px, transparent 1px);
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+    color: #e6f7ec;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Continuous Marquee Ticker */
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 28s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* High-Tech Card Hover Dynamics */
+.gamer-card-transition {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gamer-card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #ffe600;
+  box-shadow: 0 0 25px rgba(255, 230, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(180deg, #02381f 0%, #012413 100%);
+}
+
+/* Subtle Scanline Texture for Infographic */
+.scanlines-overlay {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Custom Cyber Scrollbar for Compact Panels */
+.cyber-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.cyber-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 20, 10, 0.8);
+  border-radius: 2px;
+}
+.cyber-scrollbar::-webkit-scrollbar-thumb {
+  background: #047857;
+  border-radius: 2px;
+}
+.cyber-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffe600;
+}
+.cyber-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #047857 rgba(0, 20, 10, 0.8);
+}
+

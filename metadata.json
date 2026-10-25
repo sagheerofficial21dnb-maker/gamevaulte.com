@@ -1,0 +1,6 @@
+{
+  "name": "gamevaulte",
+  "description": "THE ULTIMATE GAMER'S PLAYBOOK - GEAR, GUIDES & ESPORTS. Complete 20-article competitive gaming blog with PC optimization, mobile emulation, esports tactics, and hardware setups.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
