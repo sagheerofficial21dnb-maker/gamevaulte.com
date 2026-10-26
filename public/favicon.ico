@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="vaultBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE600" />
+      <stop offset="50%" stop-color="#00e5ff" />
+      <stop offset="100%" stop-color="#00ff88" />
+    </linearGradient>
+    <linearGradient id="vaultBgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#011b0e" />
+      <stop offset="100%" stop-color="#000804" />
+    </linearGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#FFE600" flood-opacity="0.8" />
+    </filter>
+  </defs>
+
+  <!-- Outer Cyber Hex Shield -->
+  <polygon
+    points="32,4 58,17 58,43 32,60 6,43 6,17"
+    fill="url(#vaultBgGrad)"
+    stroke="url(#vaultBorderGrad)"
+    stroke-width="3.5"
+    stroke-linejoin="round"
+  />
+
+  <!-- High-tech inner accent border -->
+  <polygon
+    points="32,10 52,20 52,40 32,53 12,40 12,20"
+    fill="none"
+    stroke="#00e5ff"
+    stroke-width="1.2"
+    stroke-opacity="0.4"
+    stroke-dasharray="5 2.5"
+  />
+
+  <!-- Modern Sharp G-V Cyber Monogram -->
+  <!-- The Vault "V" Anchor -->
+  <path
+    d="M 18 20 L 32 48 L 46 20"
+    stroke="#FFE600"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- The "G" Tactical Over-Bar & Internal Crosshair Gate -->
+  <path
+    d="M 44 24 L 25 24 C 20 24 17 27 17 32 C 17 38 21 42 27 42 L 37 42 C 41 42 43 39 43 35 L 31 35"
+    stroke="#00e5ff"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Center Esports Crosshair Core -->
+  <polygon points="32,27 35,32 32,37 29,32" fill="#FFE600" />
+  <circle cx="32" cy="32" r="1.5" fill="#011b0e" />
+
+  <!-- Corner Tech Accent Dots -->
+  <circle cx="32" cy="8" r="1.5" fill="#FFE600" />
+  <circle cx="53.5" cy="19.5" r="1.5" fill="#00e5ff" />
+  <circle cx="10.5" cy="19.5" r="1.5" fill="#00e5ff" />
+  <circle cx="32" cy="55.5" r="1.5" fill="#00ff88" />
+</svg>

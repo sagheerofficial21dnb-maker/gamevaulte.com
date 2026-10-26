@@ -134,6 +134,9 @@ app.post('/api/generate-infographic', async (req, res) => {
 async function startServer() {
   const isProd = process.env.NODE_ENV === 'production';
 
+  // Serve public static assets (favicons, images)
+  app.use(express.static(path.join(__dirname, 'public')));
+
   if (!isProd) {
     const vite = await createViteServer({
       server: { middlewareMode: true },

@@ -201,11 +201,11 @@ export default function App() {
         onOpenCalculator={() => setIsCalcOpen(true)}
       />
 
-      {/* 4. Main Section: 2-Column Responsive Layout (Main Feed + Right Sidebar) */}
-      <main ref={blogSectionRef} className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Main Area: Pro Gaming Playbooks Feed (col-span-8) */}
-          <div className="lg:col-span-8 space-y-6">
+      {/* 4. Main Section: 2-Column Responsive Layout (Main Feed with 3-Card Grid + Compact Right Sidebar) */}
+      <main ref={blogSectionRef} className="flex-1 max-w-7xl xl:max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          {/* Main Area: Pro Gaming Playbooks Feed with 3-Cards Per Row */}
+          <div className="lg:col-span-8 xl:col-span-9 space-y-6">
             {/* Section Controls Toolbar (Category Chips, Active Filter Banner, View Switcher) */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-emerald-800/80">
               {/* Active Context Title & Count */}
@@ -307,13 +307,13 @@ export default function App() {
               </div>
             )}
 
-            {/* Article Cards Grid / List */}
+            {/* Article Cards Grid / List: 3 compact cards fitting side-by-side in each row */}
             {paginatedArticles.length > 0 ? (
               <div
                 className={
                   viewMode === 'grid'
-                    ? 'grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch'
-                    : 'space-y-6'
+                    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 items-stretch'
+                    : 'space-y-4'
                 }
               >
                 {paginatedArticles.map((article) => (
@@ -363,8 +363,8 @@ export default function App() {
             />
           </div>
 
-          {/* Sidebar Column: Target Keyword Taxonomy + Trending Playbooks (col-span-4) */}
-          <div className="lg:col-span-4 lg:sticky lg:top-20 space-y-5">
+          {/* Sidebar Column: Target Keyword Taxonomy + Trending Playbooks */}
+          <div className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-20 space-y-5">
             <SidebarBlogPosts
               articles={ARTICLES_DATA}
               keywords={allKeywords}

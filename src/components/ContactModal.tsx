@@ -83,11 +83,11 @@ export const ContactModal: React.FC<Props> = ({ onClose }) => {
               <span>OFFICIAL EMAIL</span>
             </div>
             <p className="text-xs font-bold text-emerald-200 break-all select-all">
-              sagheerofficial21dnb@gmail.com
+              info@gamevaulte.com
             </p>
             <div className="pt-1">
               <a
-                href="mailto:sagheerofficial21dnb@gmail.com?subject=gamevaulte%20Inquiry"
+                href="mailto:info@gamevaulte.com?subject=gamevaulte%20Inquiry"
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#FFE600] text-black font-bold text-[11px] rounded-xs hover:bg-white transition-colors"
               >
                 <Mail className="w-3 h-3" />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, X, Bookmark, Menu, Shield, Crosshair, Wrench, PhoneCall, Sparkles, Info } from 'lucide-react';
 import { CATEGORIES } from '../utils/blogData';
+import { SiteLogo } from './SiteLogo';
 
 interface Props {
   activeCategory: string;
@@ -37,47 +38,16 @@ export const Header: React.FC<Props> = ({
   return (
     <header className="sticky top-0 z-40 bg-[#FFE600] text-black shadow-lg border-b-2 border-black/90">
       {/* Top Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
           {/* Brand Logo & Wordmark */}
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => handleNavClick('all')}
-              className="flex items-center gap-2.5 text-left group focus:outline-hidden"
+              className="text-left focus:outline-hidden"
               aria-label="gamevaulte home"
             >
-              {/* Custom SVG Gamer Shield Logo */}
-              <div className="w-10 h-10 sm:w-11 sm:h-11 bg-black rounded-sm flex items-center justify-center p-2 shadow-md border border-black group-hover:scale-105 transition-transform">
-                <svg viewBox="0 0 40 40" className="w-full h-full fill-none">
-                  {/* Vault Shield Contour */}
-                  <polygon
-                    points="20,4 34,9 34,22 20,36 6,22 6,9"
-                    fill="#00180d"
-                    stroke="#FFE600"
-                    strokeWidth="2.5"
-                  />
-                  {/* Vault Central Gear & V Letter */}
-                  <circle cx="20" cy="20" r="7" stroke="#10b981" strokeWidth="1.5" />
-                  <path
-                    d="M 15 15 L 20 25 L 25 15"
-                    stroke="#FFE600"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-
-              <div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-2xl sm:text-3xl font-display font-black tracking-tighter text-black uppercase">
-                    game<span className="text-[#004422]">vaulte</span>
-                  </span>
-                </div>
-                <p className="hidden md:block text-[9.5px] font-mono uppercase tracking-widest text-black/80 font-bold -mt-1">
-                  THE ULTIMATE GAMER'S PLAYBOOK
-                </p>
-              </div>
+              <SiteLogo variant="header" size="md" />
             </button>
           </div>
 

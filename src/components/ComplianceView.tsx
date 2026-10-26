@@ -22,6 +22,7 @@ import {
   Scale,
   Info,
 } from 'lucide-react';
+import { SiteLogo } from './SiteLogo';
 
 export type CompliancePageType = 'about' | 'contact' | 'privacy' | 'terms' | 'disclaimer';
 
@@ -104,9 +105,7 @@ export const ComplianceView: React.FC<Props> = ({
         {/* Sticky Cyber Top Header */}
         <div className="sticky top-0 z-30 bg-[#FFE600] text-black px-4 sm:px-6 py-3.5 flex items-center justify-between border-b-2 border-black/90 shadow-md">
           <div className="flex items-center gap-2.5 truncate">
-            <span className="font-mono text-xs font-black uppercase tracking-wider bg-black text-[#FFE600] px-2.5 py-1 rounded-xs">
-              gamevaulte
-            </span>
+            <SiteLogo variant="header" size="sm" showTagline={false} />
             <span className="text-black/60 font-mono text-xs font-bold hidden sm:inline">
               /
             </span>
@@ -224,7 +223,7 @@ export const ComplianceView: React.FC<Props> = ({
                     {
                       name: 'Sagheer Tech',
                       role: 'Editor-in-Chief & Lead Hardware Architect',
-                      bio: 'Over a decade of experience in silicon silicon architecture, GPU undervolting, and custom thermal loop engineering. Direct desk contact: sagheerofficial21dnb@gmail.com.',
+                      bio: 'Over a decade of experience in silicon silicon architecture, GPU undervolting, and custom thermal loop engineering. Direct desk contact: info@gamevaulte.com.',
                     },
                     {
                       name: 'Elena Cruz',
@@ -392,14 +391,14 @@ export const ComplianceView: React.FC<Props> = ({
                     </span>
                   </div>
                   <p className="text-sm sm:text-base font-mono font-bold text-[#00e5ff] break-all">
-                    sagheerofficial21dnb@gmail.com
+                    info@gamevaulte.com
                   </p>
                   <p className="text-xs text-gray-400 font-sans">
                     Send press releases, technical corrections, review unit loaners, and copyright notices.
                   </p>
                   <div className="pt-1">
                     <a
-                      href="mailto:sagheerofficial21dnb@gmail.com?subject=gamevaulte%20Editorial%20Inquiry"
+                      href="mailto:info@gamevaulte.com?subject=gamevaulte%20Editorial%20Inquiry"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFE600] text-black font-mono font-bold text-xs uppercase rounded-xs hover:bg-white transition-colors"
                     >
                       <Mail className="w-3.5 h-3.5" />
@@ -597,7 +596,7 @@ export const ComplianceView: React.FC<Props> = ({
                   At <strong>gamevaulte</strong> (accessible via our primary web domains and application endpoints), one of our main priorities is the privacy of our visitors. This Privacy Policy document contains comprehensive types of information that is collected and recorded by gamevaulte and how we employ, safeguard, and disclose that data.
                 </p>
                 <p className="text-emerald-200/90 text-sm">
-                  If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact our Data Protection Officer via email at <strong>sagheerofficial21dnb@gmail.com</strong> or by telephone/WhatsApp at <strong>03069256639</strong>.
+                  If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact our Data Protection Officer via email at <strong>info@gamevaulte.com</strong> or by telephone/WhatsApp at <strong>03069256639</strong>.
                 </p>
               </section>
 
@@ -688,7 +687,7 @@ export const ComplianceView: React.FC<Props> = ({
                   </div>
                 </div>
                 <p className="text-xs text-emerald-300 font-mono">
-                  If you make a request, we have one month to respond to you. Please direct requests to <strong>sagheerofficial21dnb@gmail.com</strong>.
+                  If you make a request, we have one month to respond to you. Please direct requests to <strong>info@gamevaulte.com</strong>.
                 </p>
               </section>
 
@@ -717,7 +716,7 @@ export const ComplianceView: React.FC<Props> = ({
                   Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.
                 </p>
                 <p className="text-emerald-200/90 text-sm">
-                  gamevaulte does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately at <strong>sagheerofficial21dnb@gmail.com</strong> and we will promptly remove such information from our records.
+                  gamevaulte does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately at <strong>info@gamevaulte.com</strong> and we will promptly remove such information from our records.
                 </p>
               </section>
 
@@ -827,7 +826,7 @@ export const ComplianceView: React.FC<Props> = ({
                   We reserve the right to modify these Terms and Conditions at any time. Any changes will be effective immediately upon posting the updated Terms on the website with an updated "Last Updated" timestamp. Your continued use of the site after revisions constitutes acceptance of the modified Terms.
                 </p>
                 <p className="text-xs font-mono text-emerald-400">
-                  These Terms shall be governed by and defined following international commercial arbitration standards and civil laws. For legal correspondence, contact <strong>sagheerofficial21dnb@gmail.com</strong>.
+                  These Terms shall be governed by and defined following international commercial arbitration standards and civil laws. For legal correspondence, contact <strong>info@gamevaulte.com</strong>.
                 </p>
               </section>
             </article>
@@ -932,7 +931,7 @@ export const ComplianceView: React.FC<Props> = ({
         <div className="sticky bottom-0 z-30 bg-[#00140a] border-t-2 border-emerald-800/80 px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-mono text-emerald-400/80">
             <span className="hidden sm:inline">Official Compliance Desk:</span>
-            <span className="text-white font-bold">sagheerofficial21dnb@gmail.com</span>
+            <span className="text-white font-bold">info@gamevaulte.com</span>
             <span className="text-emerald-700">·</span>
             <span className="text-[#FFE600] font-bold">03069256639</span>
           </div>

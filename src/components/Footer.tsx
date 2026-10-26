@@ -1,6 +1,8 @@
+import React from 'react';
 import { Phone, Mail, MessageCircle, Shield, ArrowUp, Zap, Scale, Lock, FileText, HelpCircle } from 'lucide-react';
 import { CATEGORIES } from '../utils/blogData';
 import { CompliancePageType } from './ComplianceView';
+import { SiteLogo } from './SiteLogo';
 
 interface Props {
   onSelectCategory: (categoryId: string) => void;
@@ -15,33 +17,11 @@ export const Footer: React.FC<Props> = ({ onSelectCategory, onOpenContact, onOpe
 
   return (
     <footer className="mt-20 bg-[#FFD700] text-black border-t-4 border-black select-none">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* Col 1: Brand & Identity */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 bg-black rounded-xs flex items-center justify-center p-1.5 shadow-md">
-                <svg viewBox="0 0 40 40" className="w-full h-full fill-none">
-                  <polygon
-                    points="20,4 34,9 34,22 20,36 6,22 6,9"
-                    fill="#00180d"
-                    stroke="#FFE600"
-                    strokeWidth="2.5"
-                  />
-                  <circle cx="20" cy="20" r="7" stroke="#10b981" strokeWidth="1.5" />
-                  <path
-                    d="M 15 15 L 20 25 L 25 15"
-                    stroke="#FFE600"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <span className="text-2xl font-display font-black tracking-tighter uppercase text-black">
-                game<span className="text-[#004422]">vaulte</span>
-              </span>
-            </div>
+            <SiteLogo variant="footer" size="md" showTagline={false} />
 
             <p className="text-xs font-mono font-bold text-black/90 uppercase tracking-wider">
               "THE ULTIMATE GAMER'S PLAYBOOK - GEAR, GUIDES & ESPORTS"
@@ -114,10 +94,10 @@ export const Footer: React.FC<Props> = ({ onSelectCategory, onOpenContact, onOpe
                   Official Email
                 </span>
                 <p className="text-[11px] font-bold text-emerald-300 break-all">
-                  sagheerofficial21dnb@gmail.com
+                  info@gamevaulte.com
                 </p>
                 <a
-                  href="mailto:sagheerofficial21dnb@gmail.com?subject=gamevaulte%20Editorial"
+                  href="mailto:info@gamevaulte.com?subject=gamevaulte%20Editorial"
                   className="inline-block mt-1 text-[10px] underline text-[#FFE600] hover:text-white"
                 >
                   Click to send inquiry →
@@ -208,7 +188,7 @@ export const Footer: React.FC<Props> = ({ onSelectCategory, onOpenContact, onOpe
             © 2026 gamevaulte. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-black/80">
-            <span>Official Desk: sagheerofficial21dnb@gmail.com</span>
+            <span>Official Desk: info@gamevaulte.com</span>
             <span aria-hidden="true">·</span>
             <span>Tel: 03069256639</span>
           </div>
