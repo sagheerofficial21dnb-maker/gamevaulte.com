@@ -131,6 +131,12 @@ export default function App() {
   const filteredArticles = useMemo(() => {
     let list = ARTICLES_DATA;
 
+    // Homepage/home screen is already full (20 curated guides).
+    // Do not add this new category post to the homepage feed.
+    if (activeCategory === 'all' && !searchQuery && !selectedKeyword && !showingSavedOnly) {
+      list = list.filter((art) => art.id !== 'art-21');
+    }
+
     if (showingSavedOnly) {
       list = list.filter((art) => savedIds.includes(art.id));
     }
@@ -149,10 +155,16 @@ export default function App() {
     return filterArticles(list, searchQuery, activeCategory);
   }, [searchQuery, activeCategory, showingSavedOnly, savedIds, selectedKeyword]);
 
-  // Paginated dataset: Page 1 = 12 articles, Page 2 = 8 articles
+  // Paginated dataset:
+  // - Homepage: Page 1 = 12 articles, Page 2 = 8 articles (strictly 20 articles on home feed)
+  // - Category Section (e.g. PC & Console): Page 1 = 5 articles (existing posts), Page 2 = subsequent pagination for new posts
   const { articles: paginatedArticles, totalPages } = useMemo(() => {
-    return paginateArticles(filteredArticles, currentPage, { page1Size: 12, page2Size: 8 });
-  }, [filteredArticles, currentPage]);
+    const pageSize =
+      activeCategory === 'all'
+        ? { page1Size: 12, page2Size: 8 }
+        : { page1Size: 5, page2Size: 5 };
+    return paginateArticles(filteredArticles, currentPage, pageSize);
+  }, [filteredArticles, currentPage, activeCategory]);
 
   const handleSelectArticleById = (articleId: string) => {
     const art = ARTICLES_DATA.find((a) => a.id === articleId);
