@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   Clock,
@@ -18,6 +18,9 @@ import {
   Wrench,
   BookOpen,
   FileText,
+  ArrowLeft,
+  ArrowUp,
+  Globe,
 } from 'lucide-react';
 import { Article } from '../utils/blogUtils';
 import { InfographicVisual } from './InfographicVisual';
@@ -70,6 +73,32 @@ export const ArticleModal: React.FC<Props> = ({
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 
+  // Keyboard accessibility: ESC key to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  // Scroll to top whenever article changes
+  useEffect(() => {
+    const container = document.getElementById('fullscreen-reader-container');
+    if (container) {
+      container.scrollTop = 0;
+    }
+  }, [article.id]);
+
+  const scrollToTop = () => {
+    const container = document.getElementById('fullscreen-reader-container');
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleGenerateGeminiImage = async () => {
     setIsGenerating(true);
     setGenError(null);
@@ -116,28 +145,67 @@ export const ArticleModal: React.FC<Props> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-200"
+      id="fullscreen-reader-container"
+      className="fixed inset-0 z-50 w-full h-full min-h-screen bg-[#00140a] text-emerald-100 overflow-y-auto select-text animate-in fade-in duration-150"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-article-title"
     >
-      <div className="relative w-full max-w-4xl bg-[#001f11] border-2 border-emerald-700/80 rounded-sm shadow-2xl overflow-hidden flex flex-col my-auto max-h-[92vh]">
-        {/* Modal Sticky Top Header */}
-        <div className="sticky top-0 z-20 bg-[#FFE600] text-black px-4 sm:px-6 py-3 flex items-center justify-between border-b-2 border-black/80 shadow-md">
-          <div className="flex items-center gap-2 truncate pr-2">
-            <span className="font-mono text-xs font-black uppercase tracking-wider bg-black text-[#FFE600] px-2 py-0.5 rounded-xs">
+      {/* 1. Full-Screen Sticky Header with Live Interactive URL Bar */}
+      <header className="sticky top-0 z-40 bg-[#FFE600] text-black border-b-2 border-black/90 shadow-lg px-3 sm:px-6 py-2.5">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          {/* Left: Back to Guides Button & Category Tag */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <button
+              onClick={onClose}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black text-[#FFE600] hover:bg-neutral-900 font-mono font-bold text-xs uppercase rounded-xs transition-colors shadow-xs"
+              aria-label="Back to all guides"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Back to Guides</span>
+              <span className="sm:hidden">Back</span>
+            </button>
+
+            <span className="font-mono text-xs font-black uppercase tracking-wider bg-black/10 text-black px-2.5 py-1 rounded-xs border border-black/20 hidden md:inline-block">
               {article.categoryLabel}
-            </span>
-            <span className="hidden sm:inline font-mono text-xs text-black/70 font-semibold truncate">
-              Target: {article.keyword}
             </span>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Center: Live URL Address Bar ("اس کا اوپر لنک بھی بن کے آنا چاہیے") */}
+          <div className="flex-1 max-w-xl mx-1 sm:mx-4">
+            <div
+              onClick={handleCopyLink}
+              className="group cursor-pointer flex items-center justify-between gap-2 bg-black text-white px-2.5 sm:px-3 py-1.5 rounded-xs border border-black hover:border-[#00e5ff] transition-all shadow-inner"
+              title="Click to copy full article URL"
+            >
+              <div className="flex items-center gap-1.5 truncate">
+                <Globe className="w-3.5 h-3.5 text-[#00e5ff] shrink-0" />
+                <span className="text-[11px] sm:text-xs font-mono text-emerald-300 font-bold truncate">
+                  gamevaulte.com/<span className="text-[#FFE600]">#{article.slug}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-1 shrink-0 text-[10px] font-mono text-gray-400 group-hover:text-[#FFE600] transition-colors">
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-emerald-400 font-bold hidden sm:inline">COPIED</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">COPY LINK</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Action Controls: Font size, Bookmark, WhatsApp, Close */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Font size toggle */}
             <button
               onClick={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
-              className="px-2 py-1 text-xs font-mono font-bold bg-black/10 hover:bg-black/20 text-black rounded-xs border border-black/30"
+              className="px-2.5 py-1 text-xs font-mono font-bold bg-black/10 hover:bg-black/20 text-black rounded-xs border border-black/30"
               title="Toggle reading font size"
             >
               {fontSize === 'normal' ? 'A+' : 'A-'}
@@ -167,29 +235,21 @@ export const ArticleModal: React.FC<Props> = ({
               <MessageCircle className="w-4 h-4" />
             </button>
 
-            {/* Copy Link */}
-            <button
-              onClick={handleCopyLink}
-              className="p-1.5 rounded-xs bg-black text-[#FFE600] hover:bg-neutral-800 transition-colors"
-              title="Copy link"
-              aria-label="Copy guide link"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-            </button>
-
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-xs bg-black text-white hover:bg-red-600 transition-colors ml-1"
-              aria-label="Close modal"
+              className="p-1.5 rounded-xs bg-black text-white hover:bg-red-600 transition-colors ml-0.5"
+              title="Close reader (ESC)"
+              aria-label="Close reader"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Scrollable Content Body */}
-        <div className="overflow-y-auto p-4 sm:p-6 md:p-8 space-y-6 scrollbar-thin scrollbar-thumb-emerald-700">
+      {/* Main Full-Screen Reader Content Area */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
           {/* 16:9 Cyber Infographic Header */}
           <div className="rounded-xs overflow-hidden border-2 border-[#00f0ff] shadow-[0_0_25px_rgba(0,240,255,0.25)]">
             <InfographicVisual
@@ -546,33 +606,54 @@ export const ArticleModal: React.FC<Props> = ({
               </p>
             </div>
           )}
-        </div>
+      </main>
 
-        {/* Modal Sticky Bottom Navigation Footer */}
-        {onNavigateArticle && (
-          <div className="sticky bottom-0 z-20 bg-[#00170c] border-t-2 border-emerald-800/80 px-4 sm:px-6 py-3 flex items-center justify-between">
+      {/* Sticky Bottom Full-Screen Reader Navigation Footer */}
+      <footer className="sticky bottom-0 z-30 bg-[#00140a] border-t-2 border-emerald-800/80 px-4 sm:px-6 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.8)]">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
+          {onNavigateArticle ? (
             <button
               onClick={() => onNavigateArticle(-1)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black/60 hover:bg-black text-emerald-300 hover:text-[#FFE600] border border-emerald-800 rounded-xs font-mono text-xs font-bold transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-900 text-emerald-300 hover:text-[#FFE600] border border-emerald-800 rounded-xs font-mono text-xs font-bold uppercase transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>Prev Guide</span>
+              <span className="hidden sm:inline">Prev Guide</span>
+              <span className="sm:hidden">Prev</span>
             </button>
+          ) : <div />}
 
+          <div className="flex items-center gap-3">
             <span className="font-mono text-xs text-emerald-400/80">
-              gamevaulte Blueprint #{article.id.replace('art-', '')} of 20
+              gamevaulte Blueprint #{article.id.replace('art-', '')}
             </span>
-
             <button
-              onClick={() => onNavigateArticle(1)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFE600] hover:bg-white text-black font-mono text-xs font-bold uppercase rounded-xs transition-colors shadow-sm"
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono text-gray-400 hover:text-[#FFE600] bg-black/40 hover:bg-black border border-emerald-900/60 rounded-xs transition-colors"
             >
-              <span>Next Guide</span>
-              <ChevronRight className="w-4 h-4" />
+              <ArrowUp className="w-3 h-3 text-[#FFE600]" />
+              <span>Back to Top</span>
             </button>
           </div>
-        )}
-      </div>
+
+          {onNavigateArticle ? (
+            <button
+              onClick={() => onNavigateArticle(1)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#FFE600] hover:bg-white text-black font-mono text-xs font-black uppercase rounded-xs transition-colors shadow-sm"
+            >
+              <span className="hidden sm:inline">Next Guide</span>
+              <span className="sm:hidden">Next</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              onClick={onClose}
+              className="px-4 py-1.5 bg-[#FFE600] text-black font-mono text-xs font-bold uppercase rounded-xs"
+            >
+              Close
+            </button>
+          )}
+        </div>
+      </footer>
     </div>
   );
 };

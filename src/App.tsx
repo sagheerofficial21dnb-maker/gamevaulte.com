@@ -63,17 +63,39 @@ export default function App() {
     }
   };
 
-  // Sync compliance page with URL hash for SEO & direct bookmarks
+  // Sync compliance page and articles with URL hash for SEO & direct deep-linking
   useEffect(() => {
     const handleHash = () => {
       const rawHash = window.location.hash.replace('#', '').toLowerCase();
+      if (!rawHash) {
+        setSelectedArticle(null);
+        setCompliancePage(null);
+        document.title = "gamevaulte - THE ULTIMATE GAMER'S PLAYBOOK | Gear, Guides & Esports";
+        return;
+      }
       if (['about', 'contact', 'privacy', 'terms', 'disclaimer'].includes(rawHash)) {
         setCompliancePage(rawHash as CompliancePageType);
+        setSelectedArticle(null);
+        return;
+      }
+      // Check if hash matches an article slug or id
+      const matchingArticle = ARTICLES_DATA.find(
+        (a) => a.slug.toLowerCase() === rawHash || a.id.toLowerCase() === rawHash
+      );
+      if (matchingArticle) {
+        setSelectedArticle(matchingArticle);
+        setCompliancePage(null);
+        document.title = `${matchingArticle.title} | gamevaulte`;
       }
     };
+
     handleHash();
     window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    window.addEventListener('popstate', handleHash);
+    return () => {
+      window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('popstate', handleHash);
+    };
   }, []);
 
   // Sync saved bookmarks with localStorage
@@ -166,10 +188,24 @@ export default function App() {
     return paginateArticles(filteredArticles, currentPage, pageSize);
   }, [filteredArticles, currentPage, activeCategory]);
 
+  const handleSelectArticle = (art: Article) => {
+    setSelectedArticle(art);
+    window.history.pushState(null, '', `#${art.slug}`);
+    document.title = `${art.title} | gamevaulte`;
+  };
+
+  const handleCloseArticle = () => {
+    setSelectedArticle(null);
+    if (window.location.hash) {
+      window.history.pushState(null, '', window.location.pathname + window.location.search);
+    }
+    document.title = "gamevaulte - THE ULTIMATE GAMER'S PLAYBOOK | Gear, Guides & Esports";
+  };
+
   const handleSelectArticleById = (articleId: string) => {
     const art = ARTICLES_DATA.find((a) => a.id === articleId);
     if (art) {
-      setSelectedArticle(art);
+      handleSelectArticle(art);
     }
   };
 
@@ -178,7 +214,7 @@ export default function App() {
     const currentIndex = ARTICLES_DATA.findIndex((a) => a.id === selectedArticle.id);
     if (currentIndex === -1) return;
     const nextIndex = (currentIndex + delta + ARTICLES_DATA.length) % ARTICLES_DATA.length;
-    setSelectedArticle(ARTICLES_DATA[nextIndex]);
+    handleSelectArticle(ARTICLES_DATA[nextIndex]);
   };
 
   return (
@@ -333,7 +369,7 @@ export default function App() {
                     key={article.id}
                     article={article}
                     viewMode={viewMode}
-                    onSelect={(art) => setSelectedArticle(art)}
+                    onSelect={(art) => handleSelectArticle(art)}
                     isSaved={savedIds.includes(article.id)}
                     onToggleSave={toggleSaveArticle}
                     customImageAsset={generatedImages[article.id]}
@@ -382,7 +418,7 @@ export default function App() {
               keywords={allKeywords}
               selectedKeyword={selectedKeyword}
               onSelectKeyword={handleSelectKeyword}
-              onSelectArticle={(art) => setSelectedArticle(art)}
+              onSelectArticle={(art) => handleSelectArticle(art)}
               onOpenCalculator={() => setIsCalcOpen(true)}
               onOpenContact={() => setCompliancePage('contact')}
             />
@@ -390,11 +426,11 @@ export default function App() {
         </div>
       </main>
 
-      {/* 6. Comprehensive Article Reader Modal */}
+      {/* 6. Comprehensive Full-Screen Article Reader */}
       {selectedArticle && (
         <ArticleModal
           article={selectedArticle}
-          onClose={() => setSelectedArticle(null)}
+          onClose={handleCloseArticle}
           isSaved={savedIds.includes(selectedArticle.id)}
           onToggleSave={toggleSaveArticle}
           onNavigateArticle={handleNavigateArticle}
@@ -411,7 +447,7 @@ export default function App() {
           onClose={() => setIsCalcOpen(false)}
           onReadAimGuide={() => {
             const aimGuide = ARTICLES_DATA.find((a) => a.id === 'art-13');
-            if (aimGuide) setSelectedArticle(aimGuide);
+            if (aimGuide) handleSelectArticle(aimGuide);
           }}
         />
       )}
