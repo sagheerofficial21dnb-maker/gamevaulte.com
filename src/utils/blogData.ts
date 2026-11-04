@@ -14,7 +14,7 @@ export const ARTICLES_DATA: Article[] = [
 export const CATEGORIES = [
   { id: 'all', label: 'Home Feed', count: 20 },
   { id: 'pc-console', label: 'PC & Console', count: 6 },
-  { id: 'mobile-emulation', label: 'Mobile & Emulation', count: 5 },
+  { id: 'mobile-emulation', label: 'Mobile & Emulation', count: 6 },
   { id: 'esports-tactics', label: 'Esports & Tactics', count: 5 },
   { id: 'hardware-setup', label: 'Hardware & Setups', count: 5 },
 ];
