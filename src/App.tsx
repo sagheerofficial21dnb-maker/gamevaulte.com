@@ -156,7 +156,7 @@ export default function App() {
     // Homepage/home screen is already full (20 curated guides).
     // Do not add new category posts to the homepage feed.
     if (activeCategory === 'all' && !searchQuery && !selectedKeyword && !showingSavedOnly) {
-      list = list.filter((art) => art.id !== 'art-21' && art.id !== 'art-22');
+      list = list.filter((art) => art.id !== 'art-21' && art.id !== 'art-22' && art.id !== 'art-23');
     }
 
     if (showingSavedOnly) {

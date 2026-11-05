@@ -103,23 +103,28 @@ test('calculateEdpi gives accurate calculations and bracket ratings', () => {
   assert.equal(high.bracket, 'High Sens (Wrist Aim)');
 });
 
-test('ARTICLES_DATA contains exactly 20 articles with 5 per category and page 1 has 12, page 2 has 8', async () => {
+test('Homepage feed isolates 20 curated articles (12 on p1, 8 on p2) and category pagination houses expanded articles', async () => {
   const { ARTICLES_DATA } = await import('./blogData');
-  assert.equal(ARTICLES_DATA.length, 20);
+  assert.equal(ARTICLES_DATA.length, 23);
 
-  const pcConsole = ARTICLES_DATA.filter((a) => a.category === 'pc-console');
-  const mobile = ARTICLES_DATA.filter((a) => a.category === 'mobile-emulation');
-  const esports = ARTICLES_DATA.filter((a) => a.category === 'esports-tactics');
-  const hardware = ARTICLES_DATA.filter((a) => a.category === 'hardware-setup');
+  // Home feed isolates exactly 20 articles
+  const homeFeed = ARTICLES_DATA.filter((a) => a.id !== 'art-21' && a.id !== 'art-22' && a.id !== 'art-23');
+  assert.equal(homeFeed.length, 20);
 
-  assert.equal(pcConsole.length, 5);
-  assert.equal(mobile.length, 5);
-  assert.equal(esports.length, 5);
-  assert.equal(hardware.length, 5);
-
-  const p1 = paginateArticles(ARTICLES_DATA, 1);
+  const p1 = paginateArticles(homeFeed, 1, { page1Size: 12, page2Size: 8 });
   assert.equal(p1.articles.length, 12);
-  const p2 = paginateArticles(ARTICLES_DATA, 2);
+  const p2 = paginateArticles(homeFeed, 2, { page1Size: 12, page2Size: 8 });
   assert.equal(p2.articles.length, 8);
+
+  // Hardware & Setups category contains 6 articles (5 on page 1, 1 on page 2)
+  const hardwareArticles = ARTICLES_DATA.filter((a) => a.category === 'hardware-setup');
+  assert.equal(hardwareArticles.length, 6);
+
+  const hwP1 = paginateArticles(hardwareArticles, 1, { page1Size: 5, page2Size: 5 });
+  assert.equal(hwP1.articles.length, 5);
+  const hwP2 = paginateArticles(hardwareArticles, 2, { page1Size: 5, page2Size: 5 });
+  assert.equal(hwP2.articles.length, 1);
+  assert.equal(hwP2.articles[0].id, 'art-23');
+  assert.equal(hwP2.articles[0].slug, 'best-gaming-desk-setup');
 });
 

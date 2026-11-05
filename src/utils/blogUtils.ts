@@ -55,7 +55,8 @@ export interface Article {
     | 'keyboard-guide'
     | 'headset-guide'
     | 'dual-monitor'
-    | 'pc-cooling';
+    | 'pc-cooling'
+    | 'desk-setup';
   buyingGuide: InfographicGuideData;
   imageAsset: string;
   imagePrompt?: string;

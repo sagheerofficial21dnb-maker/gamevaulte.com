@@ -16,10 +16,11 @@ export const CATEGORIES = [
   { id: 'pc-console', label: 'PC & Console', count: 6 },
   { id: 'mobile-emulation', label: 'Mobile & Emulation', count: 6 },
   { id: 'esports-tactics', label: 'Esports & Tactics', count: 5 },
-  { id: 'hardware-setup', label: 'Hardware & Setups', count: 5 },
+  { id: 'hardware-setup', label: 'Hardware & Setups', count: 6 },
 ];
 
 export const TRENDING_TICKER_ITEMS = [
+  { text: 'Best Gaming Desk Setup', id: 'art-23' },
   { text: 'Fix Game Lag on PC', id: 'art-05' },
   { text: 'Best Mouse Sensitivity for Gaming', id: 'art-13' },
   { text: 'Best Android Emulator for PC', id: 'art-09' },
